@@ -1,6 +1,5 @@
 package com.example.bankcards.controller;
 
-import com.example.bankcards.dto.CardDTO;
 import com.example.bankcards.dto.CardHolderDTO;
 import com.example.bankcards.service.CardHolderService;
 import io.swagger.v3.oas.annotations.Operation;
