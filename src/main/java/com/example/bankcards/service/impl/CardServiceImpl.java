@@ -38,7 +38,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<CardDTO> readAll(UUID cardholderId) {
-        List<Card> cardList = cardRepository.findAllByCardHolderId(cardholderId);
+        List<Card> cardList = cardRepository.findAllByCardHolder_Id(cardholderId);
         return cardList.stream().map(cardMapper::toDTO).toList();
     }
 

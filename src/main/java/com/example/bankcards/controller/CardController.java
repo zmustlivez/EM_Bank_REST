@@ -42,7 +42,7 @@ public class CardController {
     @Operation(summary = "Read a card by card ID",
             description = "Retrieves a card by its unique identifier (UUID).")
     @GetMapping("/{id}")
-    public ResponseEntity<CardDTO> readCard(@NotNull @PathVariable UUID cardId) {
+    public ResponseEntity<CardDTO> readCard(@NotNull @PathVariable("id") UUID cardId) {
         CardDTO cardDTO = cardService.read(cardId);
 
         return ResponseEntity.ok(cardDTO);
@@ -51,7 +51,7 @@ public class CardController {
     @Operation(summary = "Read all cards by cardholder ID",
             description = "Retrieves a list of cards associated with the specified cardholder ID.")
     @GetMapping("/cardholder/{id}")
-    public ResponseEntity<List<CardDTO>> readCardsByCardHolderId(@NotNull @PathVariable UUID cardHolderId) {
+    public ResponseEntity<List<CardDTO>> readCardsByCardHolderId(@NotNull @PathVariable("id") UUID cardHolderId) {
         List<CardDTO> cardDTO = cardService.readAll(cardHolderId);
         return ResponseEntity.ok(cardDTO);
     }
@@ -59,7 +59,7 @@ public class CardController {
     @Operation(summary = "Update an existing card",
             description = "Updates an existing card with the provided data and returns the updated card.")
     @PutMapping("/{id}")
-    public ResponseEntity<CardDTO> update(@NotNull @PathVariable UUID cardId, @Valid @RequestBody CardDTO cardDTO) {
+    public ResponseEntity<CardDTO> update(@NotNull @PathVariable("id") UUID cardId, @Valid @RequestBody CardDTO cardDTO) {
         CardDTO updateCardDTO = cardService.update(cardId, cardDTO);
         return ResponseEntity.ok(updateCardDTO);
     }
@@ -67,7 +67,7 @@ public class CardController {
     @Operation(summary = "Delete a card by ID",
             description = "Deletes a card by its unique identifier (UUID) and returns a confirmation message.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@NotNull @PathVariable UUID cardId) {
+    public ResponseEntity<String> delete(@NotNull @PathVariable ("id") UUID cardId) {
         cardService.delete(cardId);
         return ResponseEntity.ok("Card " + cardId + " delete successful");
     }
