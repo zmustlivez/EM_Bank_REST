@@ -29,7 +29,7 @@
     </parent>
 
     <properties>
-        <springboot.version>3.5.4</springboot.version>
+        <springboot.version>3.5.5</springboot.version>
         <lombok.version>1.18.30</lombok.version>
         <java.version>17</java.version>
         <mapstruct.version>1.6.3</mapstruct.version>

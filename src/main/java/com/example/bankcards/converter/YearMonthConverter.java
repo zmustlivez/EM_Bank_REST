@@ -19,4 +19,3 @@ public class YearMonthConverter implements AttributeConverter<YearMonth, Date> {
         return (dbData == null ? null : YearMonth.from(dbData.toLocalDate()));
     }
 }
-

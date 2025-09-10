@@ -7,6 +7,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +34,6 @@ public class CardController {
 
     private final CardService cardService;
 
-
     @Operation(summary = "Create the card",
             description = "Return UUID of card if success")
     @PostMapping
@@ -42,17 +45,19 @@ public class CardController {
     @Operation(summary = "Read a card by card ID",
             description = "Retrieves a card by its unique identifier (UUID).")
     @GetMapping("/{id}")
-    public ResponseEntity<CardDTO> readCard(@NotNull @PathVariable("id") UUID cardId) {
+    public ResponseEntity<CardDTO> read(@NotNull @PathVariable("id") UUID cardId) {
         CardDTO cardDTO = cardService.read(cardId);
 
         return ResponseEntity.ok(cardDTO);
     }
 
     @Operation(summary = "Read all cards by cardholder ID",
-            description = "Retrieves a list of cards associated with the specified cardholder ID.")
+            description = "Retrieves a page of cards associated with the specified cardholder ID.")
     @GetMapping("/cardholder/{id}")
-    public ResponseEntity<List<CardDTO>> readCardsByCardHolderId(@NotNull @PathVariable("id") UUID cardHolderId) {
-        List<CardDTO> cardDTO = cardService.readAll(cardHolderId);
+    public ResponseEntity<Page<CardDTO>> readAllCardsByCardHolderId(
+            @NotNull @PathVariable("id") UUID cardHolderId,
+            @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<CardDTO> cardDTO = cardService.readAll(cardHolderId, pageable);
         return ResponseEntity.ok(cardDTO);
     }
 
@@ -67,7 +72,7 @@ public class CardController {
     @Operation(summary = "Delete a card by ID",
             description = "Deletes a card by its unique identifier (UUID) and returns a confirmation message.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@NotNull @PathVariable ("id") UUID cardId) {
+    public ResponseEntity<String> delete(@NotNull @PathVariable("id") UUID cardId) {
         cardService.delete(cardId);
         return ResponseEntity.ok("Card " + cardId + " delete successful");
     }

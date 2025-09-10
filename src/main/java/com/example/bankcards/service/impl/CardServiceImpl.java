@@ -6,21 +6,20 @@ import com.example.bankcards.mapper.CardMapper;
 import com.example.bankcards.repository.CardRepository;
 import com.example.bankcards.service.CardService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class CardServiceImpl implements CardService {
 
     private final CardRepository cardRepository;
     private final CardMapper cardMapper;
-
-    public CardServiceImpl(CardRepository cardRepository, CardMapper cardMapper) {
-        this.cardRepository = cardRepository;
-        this.cardMapper = cardMapper;
-    }
 
     @Override
     public UUID create(CardDTO cardDTO) {
@@ -37,9 +36,9 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<CardDTO> readAll(UUID cardholderId) {
-        List<Card> cardList = cardRepository.findAllByCardHolder_Id(cardholderId);
-        return cardList.stream().map(cardMapper::toDTO).toList();
+    public Page<CardDTO> readAll(UUID cardholderId, Pageable pageable) {
+        Page<Card> cardList = cardRepository.findAllByCardHolder_Id(cardholderId, pageable);
+        return cardList.map(cardMapper::toDTO);
     }
 
     @Override
