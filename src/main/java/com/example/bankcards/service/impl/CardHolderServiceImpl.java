@@ -44,7 +44,7 @@ public class CardHolderServiceImpl implements CardHolderService {
     @Transactional
     public CardHolderDTO update(UUID cardHolderId, CardHolderDTO cardHolderDTO) {
         CardHolder entity = findById(cardHolderId);
-        cardHolderDTO.setHolderId(entity.getId());
+        cardHolderDTO.setId(entity.getId());
         cardHolderMapper.updateEntityFromDTO(cardHolderDTO, entity);
         return cardHolderMapper.toDTO(cardHolderRepository.save(entity));
     }

@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 public class CardHolderDTO {
 
-    private UUID holderId;
+    private UUID id;
 
     @NotBlank(message = "Name cannot be blank")
     private String name;

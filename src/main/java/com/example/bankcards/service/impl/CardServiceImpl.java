@@ -2,7 +2,9 @@ package com.example.bankcards.service.impl;
 
 import com.example.bankcards.dto.CardDTO;
 import com.example.bankcards.entity.Card;
+import com.example.bankcards.exception.NotFoundException;
 import com.example.bankcards.mapper.CardMapper;
+import com.example.bankcards.repository.CardHolderRepository;
 import com.example.bankcards.repository.CardRepository;
 import com.example.bankcards.service.CardService;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,11 +20,14 @@ import java.util.UUID;
 public class CardServiceImpl implements CardService {
 
     private final CardRepository cardRepository;
+    private final CardHolderRepository cardHolderRepository;
     private final CardMapper cardMapper;
 
     @Override
     public UUID create(CardDTO cardDTO) {
-        cardRepository.existsById(cardDTO.getCardHolderId());//TODO проверить на существование владельца
+        if (!cardHolderRepository.existsById(cardDTO.getCardHolderId())) {
+            throw new NotFoundException("CardHolder not found: " + cardDTO.getCardHolderId());
+        }
         Card entity = cardMapper.toEntity(cardDTO);
         entity = cardRepository.save(entity);
         return entity.getId();

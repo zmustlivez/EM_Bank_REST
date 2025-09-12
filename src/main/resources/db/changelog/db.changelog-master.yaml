@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file:
+        db/changelog/db.changelog-20250910_create_entities_tables.sql
+  - include:
+      file:
+        db/changelog/db.changelog-20250911-1_create_security_tables.sql
+  - include:
+      file:
+        db/changelog/db.changelog-20250911-2_adding_entities_in_tables.sql

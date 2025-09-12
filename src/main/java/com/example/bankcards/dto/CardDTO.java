@@ -26,8 +26,6 @@ public class CardDTO {
 
     private UUID cardHolderId;
 
-    private String cardHolderName;
-
     @NotNull
     private YearMonth validThru;
 

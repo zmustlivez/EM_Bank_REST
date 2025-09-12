@@ -19,8 +19,6 @@ public abstract class CardMapper {
     protected EntityManager entityManager;
 
     @Mapping(target = "cardHolderId", source = "cardHolder.id")
-    @Mapping(target = "cardHolderName",
-            expression = "java(entity.getCardHolder() != null ? entity.getCardHolder().getFullName():null)")
     public abstract CardDTO toDTO(Card entity);
 
     @Mapping(target = "cardHolder", source = "cardHolderId", qualifiedByName = "mapToReference")
