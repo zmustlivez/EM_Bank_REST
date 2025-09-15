@@ -30,3 +30,5 @@ springdoc:
 
 server:
    port: 8082
+
+secret-word: "Token"

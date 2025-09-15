@@ -21,6 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User %s not found", username));
         }
 //        Hibernate.initialize(user.getRoles());
-        return new UserSecurity(user);
+        return new UserDetailsImpl(user);
     }
 }

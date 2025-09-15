@@ -13,7 +13,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class UserSecurity implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
